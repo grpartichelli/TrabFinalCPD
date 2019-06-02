@@ -1,3 +1,5 @@
+import re
+
 class trieNode:
 	def __init__(self,info=None, isID=False):
 		self.children = []
@@ -50,7 +52,7 @@ class trie:
 
 	def findID(self,word):
 		nodoAtual = self.root
-		
+		#Searches untill end of the word
 		for char in word:
 			print(char)
 			foundIt = False
@@ -69,17 +71,50 @@ class trie:
 			if children.isFinal() == True:
 				return children.getInfo()
 			
+	def findAll(self,word):
+		
+		nodoAtual = self.root
+		infoList = []
+		#Searches untill end of the word
+		for char in word:	
+			foundIt = False
+
+			for children in nodoAtual.getChildren():
+				if children.getInfo() == char:
+					nodoAtual = children
+					foundIt = True
+					break	
+			if not foundIt:
+				print("Search Failed")
+				return -1	
+		
+		return self.findAllRecursion(word,nodoAtual)
+					
+
+		
+	def findAllRecursion(self,word,nodoAtual,infoList=[]):
+		
+		
+		for children in nodoAtual.getChildren():
+			if children.isFinal() == True:
+				
+				infoList.append((children.getInfo(), word))
+			else:
+				newWord = word + children.getInfo()
+				self.findAllRecursion(newWord,children,infoList)
+
+		
+		
+		return sorted(infoList)
 		
 				
-
-
-
 				
 				
-
-	
-		
-				
-				
-				
-				
+def createTrieStructure(dataMovies):
+	trieTree = trie()
+	for line in dataMovies:
+		movieID = int(line[:line.find(",")])
+		title = re.search('\"(.*?)\"', line)
+		title = title.group(1)
+		trieTree.insert(title,movieID)
+	return trieTree
