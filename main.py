@@ -1,14 +1,31 @@
 # -*- coding: utf-8 -*-
-from entradaFuncs import *
-	
+from entradaFuncs import * 
+from trieDataStructure import *
+import re
 
 def main():
 	
 	dataRating, dataMovies , dataTags = entrada()
 	
-	print(dataMovies(0))
+	trieTree = trie()
+	for line in dataMovies:
+		movieID = int(line[:line.find(",")])
+		title = re.search('\"(.*?)\"', line)
+		title = title.group(1)
+		trieTree.insert(title,movieID)
+		
+		
 
-	print("Return 0")
+	
+
+
+
+
+
+
+
+
+	print("Returned 0")
 	
 if __name__ == '__main__':
 	main()

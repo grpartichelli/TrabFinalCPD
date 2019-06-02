@@ -17,5 +17,7 @@ def entrada():
 	for line in f3:
 		dataMovies.append(line)
 		
-		
+	del dataRating[0]
+	del dataTags[0]
+	del dataMovies[0]
 	return dataRating, dataTags, dataMovies
