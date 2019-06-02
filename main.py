@@ -7,8 +7,7 @@ def main():
 	
 	dataRating, dataMovies , dataTags = entrada()
 	
-	trieTree = createTrieStructure(dataMovies)
-	print(trieTree.findAll("Batman"))
+	#trieTree = createTrieStructure(dataMovies)
 	
 	
 

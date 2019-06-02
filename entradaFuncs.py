@@ -7,17 +7,19 @@ def entrada():
 	dataMovies = [] 
 	dataTags = []
 
-
+    #Skips the first line
+	next(f)
+	next(f2)
+	next(f3)
+	#Reads the rest of the file
 	for line in f:
-		dataRating.append(line)
+		line = line.split(",")
+		dataRating.append([int(line[0]), int(line[1]), float(line[2])])
 		
 	for line in f2:
 		dataTags.append(line)
 		
 	for line in f3:
 		dataMovies.append(line)
-		
-	del dataRating[0]
-	del dataTags[0]
-	del dataMovies[0]
+	
 	return dataRating, dataTags, dataMovies
