@@ -50,27 +50,7 @@ class trie:
 		newNode = trieNode(id,True)
 		nodoAtual.addChildren(newNode)
 
-	def findID(self,word):
-		nodoAtual = self.root
-		#Searches untill end of the word
-		for char in word:
-			print(char)
-			foundIt = False
-			for children in nodoAtual.getChildren():
-				if children.getInfo() == char:
-					nodoAtual = children
-					foundIt = True
-					break	
-			if not foundIt:
-				print("Search Failed")
-				return -1	
-			
-		
-		
-		for children in nodoAtual.getChildren():
-			if children.isFinal() == True:
-				return children.getInfo()
-			
+	
 	def findAll(self,word):
 		
 		nodoAtual = self.root
@@ -105,16 +85,8 @@ class trie:
 
 		
 		
-		return sorted(infoList)
+		return infoList
 		
 				
 				
 				
-def createTrieStructure(dataMovies):
-	trieTree = trie()
-	for line in dataMovies:
-		movieID = int(line[:line.find(",")])
-		title = re.search('\"(.*?)\"', line)
-		title = title.group(1)
-		trieTree.insert(title,movieID)
-	return trieTree

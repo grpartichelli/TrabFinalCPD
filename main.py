@@ -3,14 +3,14 @@ from entradaFuncs import *
 from trieDataStructure import *
 import re
 
+
 def main():
 	
-	dataRating, dataMovies , dataTags = entrada()
-	#trieTree = createTrieStructure(dataMovies)
+	entrada()
 	
-
+	
 	print("Modo Console: ")
-	while(True):
+	while(False):
 		command =False
 		word = input()
 
@@ -49,8 +49,7 @@ def main():
 
 
 
-
-
+	
 	print("Programa Terminado com Sucesso.")
 	
 if __name__ == '__main__':
