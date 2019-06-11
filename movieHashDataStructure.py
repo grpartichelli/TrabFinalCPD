@@ -1,4 +1,4 @@
-class hashTable:
+class movieHashTable:
 	def __init__(self,tableSize):
 		self.tableSize = tableSize
 		self.table = [None]*tableSize
@@ -42,6 +42,7 @@ class hashTable:
 					if self.table[index].getId() == id:
 						self.table[index].addRating(rating)
 						self.table[index].increaseNumRating()
+						
 						return 
 				
 				i += 1			

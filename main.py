@@ -2,13 +2,16 @@
 from entradaFuncs import * 
 from trieDataStructure import *
 import re
+import time
 
 
 def main():
-	
+	t0 = time.time()
 	entrada()
-	
-	
+	t1 = time.time()
+
+	total = t1-t0
+	print(total)
 	print("Modo Console: ")
 	while(False):
 		command =False

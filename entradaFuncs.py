@@ -1,5 +1,7 @@
 from trieDataStructure import *
 from movieHashDataStructure import *
+from userHashDataStructure import *
+
 import csv
 
 
@@ -9,8 +11,12 @@ def entrada():
     
     #Reads movie.csv file
     #There are 27278 movies. 27278*1.6 ~= 45000
-    #Creates the Hash Table
-    moviesTable = hashTable(tableSize =45000)
+    #Creates the Hash Table for Movies
+    moviesTable = movieHashTable(tableSize =45000)
+    usersTable = userHashTable(tableSize= 30000000)
+    #There are users
+    #Creates the Hash Table for Users
+    #usersTable = hashTable(tableSize =?)
     #Creates Trie Three:
     trieTree = trie()
 
@@ -30,21 +36,25 @@ def entrada():
             moviesTable.insertMovie(movieData)
             trieTree.insert(movieTitle,movieId)
   
-  
-    
-    with open('minirating.csv', 'r', encoding="utf8") as csvFile:
-        reader = csv.reader(csvFile)
-        next(reader)
-        for line in reader:
-            userId = int(line[0])
-            movieId = int(line[1])
-            rating = float(line[2])
-            #Updates hash tables to have every rating
-            moviesTable.updateMovie(movieId,rating)
-           
+    print("MOVIES")
+    f =  open('rating.csv', 'r', encoding="utf8") 
+       
+    next(f)
+    for line in f:
+        line = line.split(",")
+        userId = int(line[0])
 
+        movieId = int(line[1])
+        rating = float(line[2])
+        newReview = review(userId,rating,movieId)
+        #Inserts users reviews to the hashtable
+        usersTable.insertReview(newReview)
+        #Updates hash tables to have every rating
+        moviesTable.updateMovie(movieId,rating)
     
 
+    print("RATINGS")
+    
 
     csvFile.close()
     
@@ -58,7 +68,7 @@ def entrada():
             movieTag = line[2]
             
     csvFile.close()
-
+    print("TAGS")
 
 
 
