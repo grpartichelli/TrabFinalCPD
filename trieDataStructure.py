@@ -54,7 +54,7 @@ class trie:
 	def findAll(self,word):
 		
 		nodoAtual = self.root
-		infoList = []
+		
 		#Searches untill end of the word
 		for char in word:	
 			foundIt = False
@@ -67,18 +67,18 @@ class trie:
 			if not foundIt:
 				print("Search Failed")
 				return -1	
-		
-		return self.findAllRecursion(word,nodoAtual)
+		infoList = []
+		return self.findAllRecursion(word,nodoAtual,infoList)
 					
 
 		
-	def findAllRecursion(self,word,nodoAtual,infoList=[]):
+	def findAllRecursion(self,word,nodoAtual,infoList):
 		
 		
 		for children in nodoAtual.getChildren():
 			if children.isFinal() == True:
 				
-				infoList.append((children.getInfo(), word))
+				infoList.append((children.getInfo()))
 			else:
 				newWord = word + children.getInfo()
 				self.findAllRecursion(newWord,children,infoList)

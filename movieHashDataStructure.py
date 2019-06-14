@@ -53,9 +53,9 @@ class movieInfo():
 		self.id = id
 		self.genres = genres
 		self.title = title
+		self.sumRatings = 0
+		self.numRatings = 0
 	
-	sumRatings = 0
-	numRatings = 0
 
 	def addRating(self,rating):
 		self.sumRatings += rating 
@@ -64,6 +64,8 @@ class movieInfo():
 		self.numRatings += 1
 
 	def getAvgRating(self):
+		if(self.numRatings == 0):
+			return 0
 		return self.sumRatings/self.numRatings
 
 	def getId(self):
