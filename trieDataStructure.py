@@ -32,11 +32,14 @@ class trie:
 		for char in word:
 			if foundEnd == False:
 				foundIt = False
+				#Checks if any children already have this char
 				for children in nodoAtual.getChildren():
 					if children.getInfo() == char:
+						#If they do have, then go to the next char
 						nodoAtual = children
 						foundIt = True
 						break
+				#If they don't, we found the end of whats already on the tree. Start creating a new path for the rest word.
 				if not foundIt:
 					foundEnd = True
 					newNode = trieNode(char)
@@ -46,17 +49,17 @@ class trie:
 				newNode = trieNode(char)
 				nodoAtual.addChildren(newNode)	
 				nodoAtual = newNode
-		
+		#Creating new path
 		newNode = trieNode(id,True)
 		nodoAtual.addChildren(newNode)
 
 	
-	def findAll(self,word):
+	def findAll(self,prefix):
 		
 		nodoAtual = self.root
 		
-		#Searches untill end of the word
-		for char in word:	
+		#Searches untill end of the prefix
+		for char in prefix:	
 			foundIt = False
 
 			for children in nodoAtual.getChildren():
@@ -67,20 +70,23 @@ class trie:
 			if not foundIt:
 				print("Search Failed")
 				return -1	
+		
 		infoList = []
-		return self.findAllRecursion(word,nodoAtual,infoList)
+		#From this node, we will go search for all the other paths.
+		return self.findAllRecursion(prefix,nodoAtual,infoList)
 					
 
-		
-	def findAllRecursion(self,word,nodoAtual,infoList):
+	
+	def findAllRecursion(self,prefix,nodoAtual,infoList):
 		
 		
 		for children in nodoAtual.getChildren():
 			if children.isFinal() == True:
-				
+				#Once we find an end, we append the id to the list.
 				infoList.append((children.getInfo()))
 			else:
-				newWord = word + children.getInfo()
+				#While searching the path, we build the words.
+				newWord = prefix + children.getInfo()
 				self.findAllRecursion(newWord,children,infoList)
 
 		
