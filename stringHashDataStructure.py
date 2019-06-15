@@ -10,20 +10,21 @@ class stringHashTable:
         i=0
         while True:
             index = ((i*i) + 31*i + hashed)%self.tableSize
+            #Inserts if not occupied
             if self.table[index] == None:
-                lst = [number]
-                self.table[index] = (string,lst)
+                self.table[index] = (string,[number])
                 return
-
+            #If there is already this string, adds a number to the number list
             if self.table[index][0] == string:
-                 self.table[index][1].append(number)
-                 return
+                if number not in self.table[index][1]:
+                    self.table[index][1].append(number)
+                return
 
             i +=1
             
 
-    def searchList(self,string):
-        hashe = str_func_hash(string,self.tableSize)
+    def searchInfo(self,string):
+        hashed = str_func_hash(string,self.tableSize)
         i=0
         while True:
             index = ((i*i) + 31*i + hashed)%self.tableSize
@@ -31,10 +32,10 @@ class stringHashTable:
                 print("Search Failed")
                 return -1
             if self.table[index][0] == string:
-                return table[index][1]
+                return self.table[index][1]
             i += 1
 
-
+#Hash function using Horner's Method
 def str_func_hash(s,tableSize):
     hashe = 0
     for c in s:

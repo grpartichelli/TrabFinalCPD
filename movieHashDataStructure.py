@@ -7,6 +7,7 @@ class movieHashTable:
 	def insertMovie(self,movieInfo):
 			i = 0
 			hashed =  movieInfo.getId()%self.tableSize
+			#Searches for an empty spot to insert
 			while True:
 				index = ((i*i) + (31*i) + hashed)%self.tableSize
 				if self.table[index] == None:
@@ -47,7 +48,7 @@ class movieHashTable:
 				
 				i += 1			
 	
-				
+#Class to store all the info for a movie, including all the ratings				
 class movieInfo():
 	def __init__(self,id,genres,title):
 		self.id = id

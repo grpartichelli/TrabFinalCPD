@@ -4,12 +4,8 @@ from userHashDataStructure import *
 from stringHashDataStructure import *
 import csv
 
-
-
 def entrada():  
     
-    
-    print("START")
     #Creates the Hash Table for Movies There are 27278 movies. 27278*1.6 ~= 45000
     moviesTable = movieHashTable(tableSize =45000)
     
@@ -23,7 +19,8 @@ def entrada():
     tagsTable = stringHashTable(tableSize = 61830 )
     #Creates Trie Three:
     trieTree = trie()
-
+    clr_screen()
+    print("Loading Movies...")
     #Reads movie.csv file
     with open('movie.csv', 'r', encoding="utf8") as csvFile:
         reader = csv.reader(csvFile)
@@ -38,15 +35,17 @@ def entrada():
                 movieGenres = []
             #Inserts movie on hash table
             for genre in movieGenres:
-                genresTable.insertList(genre,movieId)
+                genresTable.insertList(genre.lower(),movieId)
 
             movieData= movieInfo(movieId,movieGenres,movieTitle)
             moviesTable.insertMovie(movieData)
             trieTree.insert(movieTitle,movieId)
   
-    print("MOVIES")
+    clr_screen()
+    print("Loading Ratings...") 
+    #Reading rating.csv file.
+    #f =  open('minirating.csv', 'r', encoding="utf8") 
     f =  open('ratingOpt.csv', 'r', encoding="utf8") 
-       
     next(f)
     for line in f:
         line = line.split(",")
@@ -61,27 +60,28 @@ def entrada():
         moviesTable.updateMovie(movieId,rating)
     
 
-    print("RATINGS")
     
-
     csvFile.close()
-    
-
+    clr_screen()
+    print("Loading Tags...")
+    #Reads through the rating file
     with open('tagOpt.csv', 'r', encoding="utf8") as csvFile:
         reader = csv.reader(csvFile)
         next(reader)
         for line in reader:
             movieId = int(line[1])
             movieTag = line[2]
-            tagsTable.insertList(movieTag,movieId)
+            #Creates a hash table that takes tags as id.
+            tagsTable.insertList(movieTag.lower(),movieId)
 
             
     csvFile.close()
-    print("TAGS")
+    
     return trieTree, moviesTable,usersTable, genresTable,tagsTable
 
-
-
+import os
+def clr_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 
